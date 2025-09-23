@@ -1,5 +1,6 @@
 > [!CAUTION]
 > **Do not use this** if I didn't send it to you directly and talk you through it.
+> 
 > This was built as a throwaway tool to help Katie and I automate screenshots for one project. It is heavily Copilot-generated, and pretty janky. Not meant for general consumption (yet)!
 
 # GitHub Layout Audit - Screenshot Automation
