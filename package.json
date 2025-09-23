@@ -21,7 +21,13 @@
     "ts-node": "^10.9.0",
     "typescript": "^5.0.0"
   },
-  "keywords": ["playwright", "screenshots", "github", "audit", "layout"],
+  "keywords": [
+    "playwright",
+    "screenshots",
+    "github",
+    "audit",
+    "layout"
+  ],
   "author": "Your Name",
   "license": "MIT"
 }
