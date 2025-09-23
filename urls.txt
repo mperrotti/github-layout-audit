@@ -1,0 +1,6 @@
+# Test pages
+https://github.com/primer/react
+https://github.com/primer/react/issues/6804
+
+# Test pages with auth
+https://github.com/settings/profile
