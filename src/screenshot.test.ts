@@ -10,10 +10,22 @@ import {
   type ScreenshotConfig,
 } from "./utils/screenshot-helpers";
 
-// Configuration
+// Configuration with retina/HiDPI support
 const VIEWPORT_CONFIGS: ScreenshotConfig[] = [
-  { width: 1440, height: 900, fullPage: true, colorScheme: "light" },
-  { width: 375, height: 667, fullPage: true, colorScheme: "light" },
+  {
+    width: 1440,
+    height: 900,
+    fullPage: true,
+    colorScheme: "light",
+    deviceScaleFactor: 2,
+  },
+  {
+    width: 375,
+    height: 667,
+    fullPage: true,
+    colorScheme: "light",
+    deviceScaleFactor: 2,
+  },
 ];
 
 const OUTPUT_DIR = "screenshots";

@@ -10,10 +10,20 @@ import {
   type ScreenshotConfig,
 } from "./utils/screenshot-helpers";
 
-// Configuration - same as main screenshot test
+// Configuration with high-resolution screenshot support
 const VIEWPORT_CONFIGS: ScreenshotConfig[] = [
-  { width: 1440, height: 900, fullPage: true, colorScheme: "light" },
-  { width: 375, height: 667, fullPage: true, colorScheme: "light" },
+  {
+    width: 1440,
+    height: 900,
+    fullPage: true,
+    colorScheme: "light",
+  },
+  {
+    width: 375,
+    height: 667,
+    fullPage: true,
+    colorScheme: "light",
+  },
 ];
 
 const OUTPUT_DIR = "authenticated-screenshots";

@@ -13,6 +13,7 @@ export interface ScreenshotConfig {
   fullPage: boolean;
   colorScheme: "light" | "dark";
   deviceScaleFactor?: number;
+  screenshotScale?: number; // Scale factor for final screenshot size (2 = 2x larger images)
 }
 
 export interface ScreenshotOptions {
@@ -65,10 +66,15 @@ export async function preparePage(
     );
   }
 
-  // Set viewport
+  // Set viewport dimensions (device scale factor is handled by playwright.config.ts)
   await page.setViewportSize({
     width: config.width,
     height: config.height,
+  });
+
+  // Set color scheme preference
+  await page.emulateMedia({
+    colorScheme: config.colorScheme,
   });
 
   // Emulate mobile characteristics for small screens
@@ -172,7 +178,8 @@ export async function waitForPageReady(page: Page): Promise<void> {
  */
 export async function takeScreenshot(
   page: Page,
-  options: ScreenshotOptions
+  options: ScreenshotOptions,
+  config?: ScreenshotConfig
 ): Promise<void> {
   const { outputDir, filename, selector, clip } = options;
 
@@ -185,13 +192,19 @@ export async function takeScreenshot(
     if (selector) {
       // Screenshot specific element
       const element = page.locator(selector);
-      await element.screenshot({ path: screenshotPath });
+      await element.screenshot({
+        path: screenshotPath,
+        type: "png",
+        animations: "disabled",
+      });
     } else {
       // Screenshot full page or viewport
       await page.screenshot({
         path: screenshotPath,
         fullPage: !clip,
         clip,
+        type: "png",
+        animations: "disabled",
       });
     }
 

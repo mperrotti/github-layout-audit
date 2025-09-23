@@ -40,6 +40,7 @@ export default defineConfig({
         // Use minimal browser settings similar to our working test
         channel: "chrome",
         viewport: { width: 1280, height: 720 },
+        deviceScaleFactor: 3, // 3x pixel density for high-resolution screenshots
       },
     },
   ],
