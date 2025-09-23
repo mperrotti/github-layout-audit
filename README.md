@@ -1,6 +1,9 @@
+> [!CAUTION] > **Do not use this** if I didn't send it to you directly and talk you through it.
+> This was built as a throwaway tool to help Katie and I automate screenshots for one project. It is heavily Copilot-generated, and pretty janky. Not meant for general consumption (yet)!
+
 # GitHub Layout Audit - Screenshot Automation
 
-A comprehensive Playwright-based tool for capturing consistent screenshots of GitHub pages across different viewport sizes for layout pattern auditing.
+A Playwright-based tool for capturing consistent screenshots of GitHub pages across different viewport sizes for layout pattern auditing.
 
 ## Features
 
@@ -8,17 +11,12 @@ A comprehensive Playwright-based tool for capturing consistent screenshots of Gi
 - 🎨 **Light/dark mode support**
 - 🔒 **Authentication handling** for private pages
 - 📸 **Full-page and above-the-fold** screenshots
-- 🎯 **Component-specific** screenshots
-- ⚡ **Parallel execution** for efficiency
-- 🤖 **GitHub Actions integration**
 
 ## Quick Start
 
 ### 1. Installation
 
 ```bash
-git clone <your-repo>
-cd github-layout-audit
 npm install
 npm run install-browsers
 ```
@@ -29,10 +27,10 @@ npm run install-browsers
 # Take screenshots of URLs in urls.txt
 npm run screenshot
 
-# Take full-page screenshots
+# Take only full-page screenshots
 npm run screenshot:full
 
-# Take dark mode screenshots
+# Take only dark mode screenshots
 npm run screenshot:dark
 ```
 
@@ -44,13 +42,7 @@ For private pages or authenticated views:
 npm run auth
 ```
 
-This will guide you through setting up authentication using a GitHub Personal Access Token:
-
-1. Creates a token at https://github.com/settings/tokens
-2. Tests the token validity
-3. Saves it securely for screenshot authentication
-
-**Note**: Works better than browser automation for 2FA/YubiKey users.
+Hubbers: when you log into GitHub you'll have to use your passkey from Microsoft Authenticator. YubiKey will not work, and Okta won't work either.
 
 ## Configuration
 
@@ -61,7 +53,6 @@ Add URLs to screenshot, one per line:
 ```
 https://github.com/
 https://github.com/primer/react
-# Comments start with #
 ```
 
 ### Environment Variables
@@ -97,25 +88,11 @@ screenshots/
 
 ## Scripts
 
-- `npm run screenshot` - Basic screenshot capture
+- `npm run screenshot` - Basic screenshot capture (not logged in)
 - `npm run screenshot:full` - Full-page screenshots only
-- `npm run screenshot:dark` - Dark mode screenshots
+- `npm run screenshot:dark` - Dark mode screenshots only
 - `npm run auth` - Set up GitHub authentication
 - `npm run clean` - Remove screenshot and test output directories
-
-## GitHub Actions
-
-The workflow supports:
-
-- Manual triggering with color scheme selection
-- Artifact upload for easy download
-- Scheduled runs for regular audits
-
-Trigger via GitHub Actions tab or API:
-
-```bash
-gh workflow run screenshots.yml -f color_scheme=dark -f full_page=true
-```
 
 ## Troubleshooting
 
@@ -125,10 +102,10 @@ If you encounter auth problems:
 
 1. Delete `auth-config.json`
 2. Run `npm run auth` again
-3. Create a fresh GitHub Personal Access Token
-4. For 2FA/YubiKey users: Use token method instead of browser automation
 
 ### Screenshot Inconsistencies
+
+Run `npm run clean` before you run your `screenshot`/`screenshot:*` script.
 
 The tool includes several consistency measures:
 
@@ -145,19 +122,11 @@ For large URL lists:
 - Process URLs in batches
 - Increase system memory/swap
 
+### Everything else
+
+DM @mperrotti
+
 ## Advanced Usage
-
-### Custom Selectors
-
-Modify `screenshot.test.ts` to capture specific components:
-
-```typescript
-await takeScreenshot(page, {
-  outputDir,
-  filename: "custom-component.png",
-  selector: ".your-component-selector",
-});
-```
 
 ### Batch Processing
 
@@ -165,11 +134,4 @@ For large audits, consider splitting `urls.txt` into smaller files and running m
 
 ## Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Add tests for new functionality
-4. Submit a pull request
-
-## License
-
-MIT License - see LICENSE file for details.
+I wouldn't recommend it. This is a throwaway (for now).
