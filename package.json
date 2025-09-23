@@ -12,7 +12,6 @@
     "screenshot:auth:dark": "COLOR_SCHEME=dark npx playwright test src/authenticated-screenshot.test.ts",
     "screenshot:full": "FULL_PAGE=true npx playwright test src/screenshot.test.ts",
     "screenshot:dark": "COLOR_SCHEME=dark npx playwright test src/screenshot.test.ts",
-    "test": "npx playwright test",
     "clean": "rm -rf screenshots test-results authenticated-screenshots"
   },
   "devDependencies": {

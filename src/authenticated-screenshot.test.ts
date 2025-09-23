@@ -185,18 +185,6 @@ for (const url of urls) {
             filename: `${baseFilename}_fold_auth.png`,
             clip,
           });
-
-          // Optional: Take header screenshot for layout analysis
-          try {
-            await takeScreenshot(page, {
-              outputDir: path.join(outputDir, "components"),
-              filename: `${baseFilename}_header_auth.png`,
-              selector: 'header, .Header, [role="banner"]',
-            });
-          } catch (error) {
-            // Header selector might not exist, continue
-            console.log(`ℹ️ No header found for ${url}`);
-          }
         } catch (error) {
           console.error(`❌ Failed to screenshot authenticated ${url}:`, error);
           throw error;
