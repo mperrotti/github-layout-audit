@@ -32,7 +32,7 @@ npm run screenshot
 # Take full-page screenshots
 npm run screenshot:full
 
-# Take dark mode screenshots  
+# Take dark mode screenshots
 npm run screenshot:dark
 ```
 
@@ -44,7 +44,13 @@ For private pages or authenticated views:
 npm run auth
 ```
 
-Follow the prompts to log in to GitHub. This saves your session for future runs.
+This will guide you through setting up authentication using a GitHub Personal Access Token:
+
+1. Creates a token at https://github.com/settings/tokens
+2. Tests the token validity
+3. Saves it securely for screenshot authentication
+
+**Note**: Works better than browser automation for 2FA/YubiKey users.
 
 ## Configuration
 
@@ -69,8 +75,8 @@ Edit `src/screenshot.test.ts` to customize viewport sizes:
 
 ```typescript
 const VIEWPORT_CONFIGS = [
-  { width: 1440, height: 900, fullPage: true, colorScheme: 'light' },
-  { width: 375, height: 667, fullPage: true, colorScheme: 'light' }
+  { width: 1440, height: 900, fullPage: true, colorScheme: "light" },
+  { width: 375, height: 667, fullPage: true, colorScheme: "light" },
 ];
 ```
 
@@ -100,6 +106,7 @@ screenshots/
 ## GitHub Actions
 
 The workflow supports:
+
 - Manual triggering with color scheme selection
 - Artifact upload for easy download
 - Scheduled runs for regular audits
@@ -115,13 +122,16 @@ gh workflow run screenshots.yml -f color_scheme=dark -f full_page=true
 ### Authentication Issues
 
 If you encounter auth problems:
-1. Delete `storageState.json`
+
+1. Delete `auth-config.json`
 2. Run `npm run auth` again
-3. Ensure you're fully logged in before saving state
+3. Create a fresh GitHub Personal Access Token
+4. For 2FA/YubiKey users: Use token method instead of browser automation
 
 ### Screenshot Inconsistencies
 
 The tool includes several consistency measures:
+
 - Animation/transition disabling
 - Font loading waits
 - Network idle waiting
@@ -130,6 +140,7 @@ The tool includes several consistency measures:
 ### Memory Issues
 
 For large URL lists:
+
 - Reduce parallel workers in `playwright.config.ts`
 - Process URLs in batches
 - Increase system memory/swap
@@ -143,8 +154,8 @@ Modify `screenshot.test.ts` to capture specific components:
 ```typescript
 await takeScreenshot(page, {
   outputDir,
-  filename: 'custom-component.png',
-  selector: '.your-component-selector'
+  filename: "custom-component.png",
+  selector: ".your-component-selector",
 });
 ```
 

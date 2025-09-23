@@ -1,39 +1,45 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig, devices } from "@playwright/test";
+import { existsSync } from "fs";
+
+// Check if GitHub authentication is available
+const authState = existsSync("github-auth-state.json")
+  ? "github-auth-state.json"
+  : undefined;
 
 export default defineConfig({
-  testDir: './src',
+  testDir: "./src",
   timeout: 60_000,
   expect: {
     timeout: 10_000,
   },
-  fullyParallel: true,
+  fullyParallel: false,
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 1,
-  workers: process.env.CI ? 1 : undefined,
-  reporter: [
-    ['html'],
-    ['json', { outputFile: 'test-results/results.json' }]
-  ],
-  outputDir: 'test-results/',
+  retries: process.env.CI ? 2 : 0,
+  workers: 1,
+  reporter: [["html"], ["json", { outputFile: "test-results/results.json" }]],
+  outputDir: "test-results/",
   use: {
-    baseURL: 'https://github.com',
-    trace: 'on-first-retry',
-    screenshot: 'only-on-failure',
-    launchOptions: { 
-      args: ['--force-prefers-reduced-motion'] 
+    trace: "on-first-retry",
+    screenshot: "only-on-failure",
+    launchOptions: {
+      args: [
+        "--force-prefers-reduced-motion",
+        "--disable-web-security",
+        "--disable-features=VizDisplayCompositor",
+      ],
     },
-    colorScheme: (process.env.COLOR_SCHEME as 'light' | 'dark') || 'light',
+    colorScheme: (process.env.COLOR_SCHEME as "light" | "dark") || "light",
     ignoreHTTPSErrors: true,
-    // Uncomment when you have authentication set up
-    // storageState: 'storageState.json',
+    // Don't use global authentication - we'll apply it per-test as needed
+    // storageState: authState,
   },
   projects: [
     {
-      name: 'chromium',
-      use: { 
-        ...devices['Desktop Chrome'],
-        // Override viewport - we'll set this per test
-        viewport: null
+      name: "chromium",
+      use: {
+        // Use minimal browser settings similar to our working test
+        channel: "chrome",
+        viewport: { width: 1280, height: 720 },
       },
     },
   ],
